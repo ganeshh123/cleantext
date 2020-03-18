@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Menu } = require('electron')
 require('electron-reload')(__dirname);
 
 function createWindow () {
@@ -9,7 +9,7 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true
     },
-    //frame: false
+    
   })
 
   // and load the index.html of the app.
@@ -22,7 +22,29 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  createWindow()
+
+  const appMenuTemplate = [
+    {
+      label: app.getName(),
+      role: 'appmenu'
+    },
+    {
+      label: 'Edit',
+      submenu: [
+        {label: 'Undo', role: 'undo'  },
+        {label: 'Redo', role: 'redo'  },
+        {label: 'Cut', role: 'cut'  },
+        {label: 'Copy', role: 'copy'  },
+        {label: 'Paste', role:'paste'  }
+      ]
+    }
+  ]
+
+  const appMenu = Menu.buildFromTemplate(appMenuTemplate)
+  Menu.setApplicationMenu(appMenu)
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -39,6 +61,7 @@ app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow()
   }
+
 })
 
 // In this file you can include the rest of your app's specific main process
