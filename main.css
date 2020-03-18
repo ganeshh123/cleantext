@@ -1,0 +1,10 @@
+*{
+    font-family: sans-serif;
+}
+#editorWindow {
+    width: 700px;
+    height: 500px;
+}
+*:focus {
+    outline: none
+}

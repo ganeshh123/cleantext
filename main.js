@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron')
+require('electron-reload')(__dirname);
 
 function createWindow () {
   // Create the browser window.
@@ -7,12 +8,13 @@ function createWindow () {
     height: 600,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    //frame: false
   })
 
   // and load the index.html of the app.
   win.loadFile('index.html')
-
+  //enableEditMode();
   // Open the DevTools.
   //win.webContents.openDevTools()
 }
@@ -41,3 +43,4 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+

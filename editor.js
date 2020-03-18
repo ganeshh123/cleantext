@@ -1,0 +1,3 @@
+function enableEditMode(){
+    alert('Hi')
+}
