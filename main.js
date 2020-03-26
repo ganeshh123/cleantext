@@ -1,69 +1,72 @@
-const { app, BrowserWindow, Menu } = require('electron')
+const { app, BrowserWindow, Menu, dialog } = require('electron')
 require('electron-reload')(__dirname);
+const fs = require ('fs');
 
-function createWindow () {
-  // Create the browser window.
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    },
-    
-  })
+/* Creates the Main Window of the Application */
+function createMainWindow() {
+    // Create the window window.
+    const win = new BrowserWindow({
+        width: 800,
+        height: 600,
+        webPreferences: {
+            nodeIntegration: true
+        },
 
-  // and load the index.html of the app.
-  win.loadFile('index.html')
-  //enableEditMode();
-  // Open the DevTools.
-  //win.webContents.openDevTools()
+    })
+
+    const appMenuTemplate = [{
+            label: 'CleanText',
+            submenu: [
+                {label: 'Open', click: openFile, accelerator: 'CmdOrCtrl+O'}
+            ]
+        },
+        {
+            label: 'Edit',
+            submenu: [
+                { label: 'Undo', role: 'undo' },
+                { label: 'Redo', role: 'redo' },
+                { label: 'Cut', role: 'cut' },
+                { label: 'Copy', role: 'copy' },
+                { label: 'Paste', role: 'paste' }
+            ]
+        }
+    ]
+
+    const appMenu = Menu.buildFromTemplate(appMenuTemplate)
+    Menu.setApplicationMenu(appMenu)
+
+    return win
 }
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  createWindow()
 
-  const appMenuTemplate = [
-    {
-      label: app.getName(),
-      role: 'appmenu'
-    },
-    {
-      label: 'Edit',
-      submenu: [
-        {label: 'Undo', role: 'undo'  },
-        {label: 'Redo', role: 'redo'  },
-        {label: 'Cut', role: 'cut'  },
-        {label: 'Copy', role: 'copy'  },
-        {label: 'Paste', role:'paste'  }
-      ]
-    }
-  ]
+    win = createMainWindow()
 
-  const appMenu = Menu.buildFromTemplate(appMenuTemplate)
-  Menu.setApplicationMenu(appMenu)
+    /* Load Editor File into Main Window */
+    win.loadFile('editor.html')
+
 })
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+    // On macOS it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
 })
 
 app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow()
-  }
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (BrowserWindow.getAllWindows().length === 0) {
+        createWindow()
+    }
 
 })
 
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.
 
+
+const openFile = () => {
+    
+}
