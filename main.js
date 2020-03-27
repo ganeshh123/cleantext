@@ -1,5 +1,4 @@
-const { app, BrowserWindow, Menu, dialog, webContents } = require('electron')
-//require('electron-reload')(__dirname);
+const { app, BrowserWindow, Menu, dialog} = require('electron')
 const fs = require ('fs');
 
 /* Creates the Main Window of the Application */
@@ -84,7 +83,9 @@ app.on('activate', () => {
 })
 
 
-/* Reads file from filesystem */
+/* APP FUNCTIONS */
+
+/* Reads text file from filesystem */
 const openFile = () => {
 
     const filenames = dialog.showOpenDialogSync(win, {
