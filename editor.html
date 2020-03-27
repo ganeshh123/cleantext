@@ -18,7 +18,6 @@
       const {ipcRenderer} = require('electron');
 
       ipcRenderer.on('fileOpen:content', (e, data) => {
-        console.log('hello');
         document.getElementById('text').innerHTML = data;
       });
 
