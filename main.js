@@ -1,5 +1,5 @@
-const { app, BrowserWindow, Menu, dialog } = require('electron')
-require('electron-reload')(__dirname);
+const { app, BrowserWindow, Menu, dialog, webContents } = require('electron')
+//require('electron-reload')(__dirname);
 const fs = require ('fs');
 
 /* Creates the Main Window of the Application */
@@ -14,7 +14,7 @@ function createMainWindow() {
 
     })
 
-    const appMenuTemplate = [{
+    let appMenuTemplate = [{
             label: 'CleanText',
             submenu: [
                 {label: 'Open', click: openFile, accelerator: 'CmdOrCtrl+O'}
@@ -32,8 +32,26 @@ function createMainWindow() {
         }
     ]
 
+    /* Enable Developer Tools when not in Production */
+    if(process.env.NODE_ENV != 'production'){
+        appMenuTemplate[0].submenu.push(
+            {
+                label: 'Developer',
+                click(item, focusedWindow){
+                    focusedWindow.toggleDevTools();
+                },
+                accelerator: 'F12'
+            }
+        )
+    }
+
     const appMenu = Menu.buildFromTemplate(appMenuTemplate)
     Menu.setApplicationMenu(appMenu)
+
+    //Quit when closed
+    win.on('closed', () => {
+        app.quit
+    })
 
     return win
 }
@@ -66,7 +84,26 @@ app.on('activate', () => {
 })
 
 
-
+/* Reads file from filesystem */
 const openFile = () => {
-    
+
+    const filenames = dialog.showOpenDialogSync(win, {
+        properties: ['openFile'],
+        filters: [
+            {name: 'Documents', extensions: ['txt']}
+        ]
+    })
+    if(!filenames){
+        return;
+    }
+
+    fs.readFile(filenames[0], 'utf8', (err, data) => {
+        if(err){
+            throw err
+        }
+
+        win.webContents.send('fileOpen:content', data)
+        
+    })
+
 }
