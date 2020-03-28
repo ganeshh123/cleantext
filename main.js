@@ -1,6 +1,11 @@
+/* Imports */
 const { app, BrowserWindow, Menu, dialog} = require('electron')
 const fs = require ('fs');
 const showdown  = require('showdown')
+
+/* App Variables */
+const converter = new showdown.Converter();
+const isMac = process.platform === 'darwin'
 
 /* Creates the Main Window of the Application */
 function createMainWindow() {
@@ -31,6 +36,8 @@ function createMainWindow() {
             ]
         }
     ]
+
+    if()
 
     /* Enable Developer Tools when not in Production */
     if(process.env.NODE_ENV != 'production'){
@@ -85,9 +92,6 @@ app.on('activate', () => {
 
 
 /* APP FUNCTIONS */
-
-/* App Variables */
-const converter = new showdown.Converter();
 
 /* Reads text file from filesystem and opens in editor */
 const openFile = () => {
