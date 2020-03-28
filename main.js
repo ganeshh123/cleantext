@@ -1,5 +1,6 @@
 const { app, BrowserWindow, Menu, dialog} = require('electron')
 const fs = require ('fs');
+const showdown  = require('showdown')
 
 /* Creates the Main Window of the Application */
 function createMainWindow() {
@@ -114,12 +115,15 @@ const openFile = () => {
 const processFileData = (data, extension) => {
     
     let output = [];
+    converter = new showdown.Converter();
 
     if(extension === 'txt'){
         paragraphs = data.match(/[^\r\n]+((\r|\n|\r\n)[^\r\n]+)*/g)
         paragraphs.forEach((pg) => {
             output.push({type: 'paragraph', content: pg})
         })
+    } else if(extension === 'md'){
+        output.push({type: 'markdown', content: converter.makeHtml(data)})
     }
 
     sendToEditor('fileOpen:content', output)    

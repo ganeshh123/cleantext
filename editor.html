@@ -34,6 +34,10 @@
               section = document.createElement("p")
               section.innerText = chunk['content']
               break;
+            
+            case 'markdown':
+              editor.innerHTML = chunk['content']
+              break;
 
             default:
               section = document.createElement("p")
