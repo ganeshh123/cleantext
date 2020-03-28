@@ -18,8 +18,35 @@
       const {ipcRenderer} = require('electron');
 
       ipcRenderer.on('fileOpen:content', (e, data) => {
-        document.getElementById('text').innerHTML = data;
+        renderDocument(data)
       });
+
+
+
+      renderDocument = (inputDoc) => {
+        editor = document.getElementById('editor')
+        editor.innerHTML = ''
+
+        inputDoc.forEach((chunk) => {
+          switch(chunk['type']) {
+
+            case 'paragraph':
+              section = document.createElement("p")
+              section.innerText = chunk['content']
+              break;
+
+            default:
+              section = document.createElement("p")
+              section.innerText = chunk['content']
+              break;
+          }
+          editor.appendChild(section)
+
+        })
+
+
+
+      }
 
     </script>
 

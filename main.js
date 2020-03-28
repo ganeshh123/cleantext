@@ -91,20 +91,40 @@ const openFile = () => {
     const filenames = dialog.showOpenDialogSync(win, {
         properties: ['openFile'],
         filters: [
-            {name: 'Documents', extensions: ['txt']}
+            {name: 'Documents', extensions: ['txt', 'md']}
         ]
     })
     if(!filenames){
         return;
     }
 
+    let extension = filenames[0].split('.')[1]
+
     fs.readFile(filenames[0], 'utf8', (err, data) => {
         if(err){
             throw err
         }
 
-        win.webContents.send('fileOpen:content', data)
+        processFileData(data, extension)
         
     })
 
+}
+
+const processFileData = (data, extension) => {
+    
+    let output = [];
+
+    if(extension === 'txt'){
+        paragraphs = data.match(/[^\r\n]+((\r|\n|\r\n)[^\r\n]+)*/g)
+        paragraphs.forEach((pg) => {
+            output.push({type: 'paragraph', content: pg})
+        })
+    }
+
+    sendToEditor('fileOpen:content', output)    
+}
+
+const sendToEditor = (identifier, data) => {
+    win.webContents.send(identifier, data)
 }
