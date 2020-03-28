@@ -37,7 +37,6 @@ function createMainWindow() {
         }
     ]
 
-    if()
 
     /* Enable Developer Tools when not in Production */
     if(process.env.NODE_ENV != 'production'){
