@@ -37,10 +37,6 @@ function createMainWindow() {
         }
     ]
 
-    if(isMac){
-        appMenuTemplate.unshift({})
-    }
-
     /* Enable Developer Tools when not in Production */
     if(process.env.NODE_ENV != 'production'){
         appMenuTemplate[0].submenu.push(
