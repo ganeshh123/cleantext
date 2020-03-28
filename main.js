@@ -38,7 +38,7 @@ function createMainWindow() {
     ]
 
     if(isMac){
-        appMenuTemplate.push({})
+        appMenuTemplate.unshift({})
     }
 
     /* Enable Developer Tools when not in Production */
