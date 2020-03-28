@@ -18,39 +18,8 @@
       const {ipcRenderer} = require('electron');
 
       ipcRenderer.on('fileOpen:content', (e, data) => {
-        renderDocument(data)
+        document.getElementById('editor').innerHTML = data
       });
-
-
-
-      renderDocument = (inputDoc) => {
-        editor = document.getElementById('editor')
-        editor.innerHTML = ''
-
-        inputDoc.forEach((chunk) => {
-          switch(chunk['type']) {
-
-            case 'paragraph':
-              section = document.createElement("p")
-              section.innerText = chunk['content']
-              break;
-            
-            case 'markdown':
-              editor.innerHTML = chunk['content']
-              break;
-
-            default:
-              section = document.createElement("p")
-              section.innerText = chunk['content']
-              break;
-          }
-          editor.appendChild(section)
-
-        })
-
-
-
-      }
 
     </script>
 

@@ -1,5 +1,13 @@
+@font-face {
+    font-family: "Lato";
+    src: url(./Lato.ttf) format("truetype");
+  }
+
 *{
-    font-family: sans-serif;
+    font-family: 'Lato';
+}
+body {
+    background-color:white;
 }
 #editorWindow {
     width: 700px;

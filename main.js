@@ -86,7 +86,10 @@ app.on('activate', () => {
 
 /* APP FUNCTIONS */
 
-/* Reads text file from filesystem */
+/* App Variables */
+const converter = new showdown.Converter();
+
+/* Reads text file from filesystem and opens in editor */
 const openFile = () => {
 
     const filenames = dialog.showOpenDialogSync(win, {
@@ -99,36 +102,12 @@ const openFile = () => {
         return;
     }
 
-    let extension = filenames[0].split('.')[1]
-
     fs.readFile(filenames[0], 'utf8', (err, data) => {
         if(err){
             throw err
         }
 
-        processFileData(data, extension)
+        win.webContents.send('fileOpen:content', converter.makeHtml(data))
         
     })
-
-}
-
-const processFileData = (data, extension) => {
-    
-    let output = [];
-    converter = new showdown.Converter();
-
-    if(extension === 'txt'){
-        paragraphs = data.match(/[^\r\n]+((\r|\n|\r\n)[^\r\n]+)*/g)
-        paragraphs.forEach((pg) => {
-            output.push({type: 'paragraph', content: pg})
-        })
-    } else if(extension === 'md'){
-        output.push({type: 'markdown', content: converter.makeHtml(data)})
-    }
-
-    sendToEditor('fileOpen:content', output)    
-}
-
-const sendToEditor = (identifier, data) => {
-    win.webContents.send(identifier, data)
 }
