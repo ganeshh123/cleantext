@@ -98,7 +98,7 @@ const openFile = () => {
     const filenames = dialog.showOpenDialogSync(win, {
         properties: ['openFile'],
         filters: [
-            {name: 'Documents', extensions: ['txt', 'md']}
+            {name: 'Documents', extensions: ['txt', 'md', 'markdown']}
         ]
     })
     if(!filenames){
