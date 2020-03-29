@@ -32,11 +32,29 @@ function createMainWindow() {
         {
             label: 'Edit',
             submenu: [
-                { label: 'Undo', role: 'undo' },
-                { label: 'Redo', role: 'redo' },
-                { label: 'Cut', role: 'cut' },
-                { label: 'Copy', role: 'copy' },
-                { label: 'Paste', role: 'paste' }
+                { role: 'undo' },
+                { role: 'redo' },
+                { type: 'separator' },
+                { role: 'cut' },
+                { role: 'copy' },
+                { role: 'paste' },
+                ...(isMac ? [
+                  { role: 'pasteAndMatchStyle' },
+                  { role: 'delete' },
+                  { role: 'selectAll' },
+                  { type: 'separator' },
+                  {
+                    label: 'Speech',
+                    submenu: [
+                      { role: 'startspeaking' },
+                      { role: 'stopspeaking' }
+                    ]
+                  }
+                ] : [
+                  { role: 'delete' },
+                  { type: 'separator' },
+                  { role: 'selectAll' }
+                ])
             ]
         }
     ]
