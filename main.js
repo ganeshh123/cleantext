@@ -46,7 +46,7 @@ function createMainWindow() {
                 click(item, focusedWindow){
                     focusedWindow.toggleDevTools();
                 },
-                accelerator: 'F12'
+                accelerator: isMac ? 'Cmd+Shift+I' : 'F12'
             }
         )
     }
