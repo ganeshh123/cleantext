@@ -15,6 +15,17 @@
 
     <script>
       
+      /* Imports */
+      const customTitlebar = require('custom-electron-titlebar');
+
+      /* Title Bar */
+      let TitleBar = new customTitlebar.Titlebar({
+          backgroundColor: customTitlebar.Color.fromHex('#3b3b3b'),
+          shadow: true,
+          
+      });
+      TitleBar.updateTitle('CleanText');
+      
       const {ipcRenderer} = require('electron');
 
       ipcRenderer.on('fileOpen:content', (e, data) => {
