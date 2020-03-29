@@ -1,11 +1,13 @@
 /* Imports */
-const { app, BrowserWindow, Menu, dialog} = require('electron')
-const fs = require ('fs');
+const { app, BrowserWindow, Menu, dialog, ipcMain} = require('electron')
+const fs = require ('fs')
 const showdown  = require('showdown')
+const jsdom = require('jsdom')
 
 /* App Variables */
-const converter = new showdown.Converter();
+const converter = new showdown.Converter()
 const isMac = process.platform === 'darwin'
+const jsDom = new jsdom.JSDOM();
 
 /* Creates the Main Window of the Application */
 function createMainWindow() {
@@ -23,6 +25,7 @@ function createMainWindow() {
             label: 'CleanText',
             submenu: [
                 {label: 'Open', click: openFile, accelerator: 'CmdOrCtrl+O'},
+                {label: 'Save', click: saveRequest, accelerator: 'CmdOrCtrl+S'},
                 {label: 'Exit', role: 'quit', accelerator: isMac ? 'Cmd+Q' : 'Alt+F4'}
             ]
         },
@@ -40,7 +43,7 @@ function createMainWindow() {
 
     /* Enable Developer Tools when not in Production */
     if(process.env.NODE_ENV != 'production'){
-        appMenuTemplate[0].submenu.splice(1, 0,
+        appMenuTemplate[0].submenu.splice(2, 0,
             {
                 label: 'Developer',
                 click(item, focusedWindow){
@@ -92,7 +95,7 @@ app.on('activate', () => {
 
 /* APP FUNCTIONS */
 
-/* Reads text file from filesystem and opens in editor */
+/* Reads file from filesystem and opens in editor */
 const openFile = () => {
 
     const filenames = dialog.showOpenDialogSync(win, {
@@ -114,3 +117,32 @@ const openFile = () => {
         
     })
 }
+
+/* Requests the editor to return document
+    in html format to save to storage */
+const saveRequest = () => {
+    win.webContents.send('requestSave', {})
+}
+
+/* Lets user save files to storage */
+ipcMain.on('fileSave:content', function(e, data){
+    documentText = converter.makeMarkdown(data, jsDom.window.document)
+    
+    const filename = dialog.showSaveDialogSync(win, {
+        properties: ['saveFile'],
+        filters: [
+            {name: 'Documents', extensions: ['md', 'markdown']}
+        ]
+    })
+    if(!filename){
+        console.log('Save Dialog Cancelled')
+        return
+    }
+
+    fs.writeFile(filename, documentText, function(err){
+        if(err){
+            throw err
+        }
+        console.log('File Saved!')
+    })
+})

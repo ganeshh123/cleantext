@@ -21,6 +21,11 @@
         document.getElementById('editor').innerHTML = data
       });
 
+      ipcRenderer.on('requestSave', (e, data) => {
+        documentData = document.getElementById('editor').innerHTML;
+        ipcRenderer.send('fileSave:content', documentData)
+      });
+
     </script>
 
   </body>
