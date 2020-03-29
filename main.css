@@ -9,9 +9,8 @@
 body {
     background-color:white;
 }
-#editorWindow {
-    width: 700px;
-    height: 500px;
+#editor {
+    padding: 0px 15px 5px 15px;
 }
 *:focus {
     outline: none
