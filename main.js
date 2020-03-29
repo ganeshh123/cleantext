@@ -56,6 +56,16 @@ function createMainWindow() {
                   { role: 'selectAll' }
                 ])
             ]
+        },
+        {
+            label: 'View',
+            submenu: [
+              { role: 'zoomin' },
+              { role: 'zoomout' },
+              { role: 'resetzoom' },
+              { type: 'separator' },
+              { role: 'togglefullscreen' }
+            ]
         }
     ]
 
