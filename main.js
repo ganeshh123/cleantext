@@ -22,7 +22,8 @@ function createMainWindow() {
     let appMenuTemplate = [{
             label: 'CleanText',
             submenu: [
-                {label: 'Open', click: openFile, accelerator: 'CmdOrCtrl+O'}
+                {label: 'Open', click: openFile, accelerator: 'CmdOrCtrl+O'},
+                {label: 'Exit', role: 'quit', accelerator: isMac ? 'Cmd+Q' : 'Alt+F4'}
             ]
         },
         {
@@ -39,7 +40,7 @@ function createMainWindow() {
 
     /* Enable Developer Tools when not in Production */
     if(process.env.NODE_ENV != 'production'){
-        appMenuTemplate[0].submenu.push(
+        appMenuTemplate[0].submenu.splice(1, 0,
             {
                 label: 'Developer',
                 click(item, focusedWindow){
