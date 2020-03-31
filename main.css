@@ -85,7 +85,12 @@ table {
     justify-content: stretch;
     border: none;
 }
-
+.macTitleBar {
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
 
 html, body {
     width: 100%;
