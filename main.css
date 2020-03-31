@@ -60,6 +60,7 @@ table {
     font-family: 'Lato';
     animation: opac 0.5s;
     margin: none !important;
+    overflow: hidden;
 }
 @keyframes opac {
     from {
@@ -116,4 +117,5 @@ html, body {
 #editor {
     padding: 0px 15px 5px 15px;
     overflow: auto;
+    height: 100%;
 }
