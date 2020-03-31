@@ -3,6 +3,7 @@ const { app, BrowserWindow, Menu, dialog, ipcMain} = require('electron')
 const fs = require ('fs')
 const showdown  = require('showdown')
 const jsdom = require('jsdom')
+const { plugin } = require('electron-frameless-window-plugin')
 
 /* App Variables */
 const converter = new showdown.Converter()
@@ -15,12 +16,14 @@ function createMainWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
-        frame: isMac,
+        frame: false,
         transparent: !isMac,
+        fullscreen: false,
+        titleBarStyle: 'hidden',
         webPreferences: {
             nodeIntegration: true
         },
-
+        
     })
 
     let appMenuTemplate = [{
@@ -103,6 +106,10 @@ app.whenReady().then(() => {
     win.loadFile('editor.html')
 
 })
+
+plugin({
+    setGlobal: true
+  })
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
