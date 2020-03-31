@@ -85,7 +85,7 @@ table {
     justify-content: stretch;
     border: none;
 }
-.macTitleBar {
+#macTitleBar {
     height: 25px;
     display: flex;
     justify-content: center;
