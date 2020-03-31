@@ -79,6 +79,9 @@ table {
     border-top-right-radius: 5px;
     box-shadow: none !important;
 }
+.window-title {
+    font-size: 15px !important;
+}
 .container-after-titlebar {
     display: flex;
     flex-direction: column;
