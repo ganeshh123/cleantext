@@ -51,7 +51,6 @@
       /* Set file name */
       ipcRenderer.on('fileOpen:name', (e, data) => {
         const titleText = data + ' - CleanText'
-        console.log(titleText)
         if(process.platform === 'darwin'){
           document.getElementById('macTitleBar').innerText = titleText
         }
