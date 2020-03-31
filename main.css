@@ -20,15 +20,17 @@
     outline: none
 }
 
-/* Title Be */
+/* Title Bar */
 .titlebar {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    box-shadow: none !important;
 }
 .container-after-titlebar {
     display: flex;
     flex-direction: column;
     justify-content: stretch;
+    border: none;
 }
 
 
@@ -44,6 +46,7 @@ html, body {
      border-bottom-left-radius: 5px;
      border-bottom-right-radius: 5px;
      height: 100%;
+     border-top: none;
  }
 
 

@@ -107,9 +107,11 @@ app.whenReady().then(() => {
 
 })
 
-plugin({
-    setGlobal: true
-  })
+if(!isMac){
+    plugin({
+        setGlobal: true
+      })
+}
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
