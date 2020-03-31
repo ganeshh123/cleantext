@@ -25,9 +25,12 @@
       if(process.platform === 'darwin'){
         bodyDOM = document.body
         var macTitleBar = document.createElement("DIV");
-        macTitleBar.style.height = '25px;'
         macTitleBar.innerText = 'CleanText'
+        macTitleBar.id = 'macTitleBar'
         bodyDOM.prepend(macTitleBar)
+
+        macTitleBar = document.getElementById('macTitleBar')
+        macTitleBar.style.height = '25px'
       }
 
       /* Title Bar */
