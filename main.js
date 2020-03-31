@@ -147,7 +147,11 @@ const openFile = () => {
         return;
     }
 
-    filenameSplit = filenames[0].split('\\')
+    if(!isMac){
+        filenameSplit = filenames[0].split('\\')
+    }else{
+        filenameSplit = filenames[0].split('/')
+    }
     win.webContents.send('fileOpen:name', filenameSplit[filenameSplit.length -1])
 
     fs.readFile(filenames[0], 'utf8', (err, data) => {
