@@ -23,7 +23,11 @@
 
       /* Adjustments for Mac */
       if(process.platform === 'darwin'){
-        document.getElementById('appContainer').style.marginTop = '25px';
+        bodyDOM = document.body
+        var macTitleBar = document.createElement("DIV");
+        macTitleBar.style.height = '25px;'
+        macTitleBar.innerText = 'CleanText'
+        bodyDOM.prepend(macTitleBar)
       }
 
       /* Title Bar */
