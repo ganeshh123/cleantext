@@ -16,7 +16,7 @@ function createMainWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
-        frame: isMac,
+        frame: false,
         transparent: !isMac,
         fullscreen: false,
         titleBarStyle: 'hidden',
