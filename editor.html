@@ -21,6 +21,11 @@
       const customTitlebar = require('custom-electron-titlebar');
       let titleBar
 
+      /* Adjustments for Mac */
+      if(process.platform === 'darwin'){
+        document.getElementById('appContainer').style.marginTop = '50px';
+      }
+
       /* Title Bar */
       if(process.platform != 'darwin'){
         titleBar = new customTitlebar.Titlebar({
