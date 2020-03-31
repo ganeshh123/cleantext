@@ -1,3 +1,4 @@
+/* Global Styling */
 @font-face {
     font-family: "Lato";
     src: url(./Lato.ttf) format("truetype");
@@ -5,13 +6,49 @@
 
 *{
     font-family: 'Lato';
+    animation: opac 0.5s;
 }
-body {
-    background-color:white;
-}
-#editor {
-    padding: 0px 15px 5px 15px;
+@keyframes opac {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
 *:focus {
     outline: none
+}
+
+/* Title Be */
+.titlebar {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.container-after-titlebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+}
+
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+ }
+
+ #appContainer{
+     background-color: white;
+     border-bottom-left-radius: 5px;
+     border-bottom-right-radius: 5px;
+     height: 100%;
+ }
+
+
+
+
+#editor {
+    padding: 0px 15px 5px 15px;
 }

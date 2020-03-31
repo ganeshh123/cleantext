@@ -9,30 +9,40 @@
     <script src="./main.js.js"></script>
   </head>
   <body>
-    <div id="editor" contenteditable="true">
-      <p id='text'>Edit me..</p>
+    <div id="appContainer">
+      <div id="editor" contenteditable="true">
+        <p id='text'>Edit me..</p>
+      </div>
     </div>
 
     <script>
       
       /* Imports */
       const customTitlebar = require('custom-electron-titlebar');
+      let titleBar
 
       /* Title Bar */
       if(process.platform != 'darwin'){
-        let TitleBar = new customTitlebar.Titlebar({
+        titleBar = new customTitlebar.Titlebar({
           backgroundColor: customTitlebar.Color.fromHex('#3b3b3b'),
           shadow: true
         });
-        TitleBar.updateTitle('CleanText');
+        titleBar.updateTitle('CleanText');
       }
       
       const {ipcRenderer} = require('electron');
 
+      /* Display Document Content */
       ipcRenderer.on('fileOpen:content', (e, data) => {
         document.getElementById('editor').innerHTML = data
       });
 
+      /* Set file name */
+      ipcRenderer.on('fileOpen:name', (e, data) => {
+        titleBar.updateTitle(data + ' - CleanText')
+      });
+
+      /* Give document content to mainprocess to save to file */
       ipcRenderer.on('requestSave', (e, data) => {
         documentData = document.getElementById('editor').innerHTML;
         ipcRenderer.send('fileSave:content', documentData)

@@ -16,6 +16,7 @@ function createMainWindow() {
         width: 800,
         height: 600,
         frame: isMac,
+        transparent: !isMac,
         webPreferences: {
             nodeIntegration: true
         },
@@ -65,7 +66,7 @@ function createMainWindow() {
               { role: 'zoomout' },
               { role: 'resetzoom' },
               { type: 'separator' },
-              { role: 'togglefullscreen' }
+              //{ role: 'togglefullscreen' }
             ]
         }
     ]
@@ -137,13 +138,15 @@ const openFile = () => {
         return;
     }
 
+    filenameSplit = filenames[0].split('\\')
+    win.webContents.send('fileOpen:name', filenameSplit[filenameSplit.length -1])
+
     fs.readFile(filenames[0], 'utf8', (err, data) => {
         if(err){
             throw err
         }
 
         win.webContents.send('fileOpen:content', converter.makeHtml(data))
-        
     })
 }
 
