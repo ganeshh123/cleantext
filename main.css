@@ -139,7 +139,7 @@ html, body {
 #editor {
     padding: 10px 15px 5px 15px;
     height: 100%;
-    width: 100%;
+    width: auto;
     max-width: 1200px;
     margin: auto;
     overflow: auto;
