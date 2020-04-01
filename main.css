@@ -120,6 +120,7 @@ html, body {
      border-top: none;
      justify-content: 'center';
      flex-grow: 1;
+     overflow: hidden;
  }
 
 /* Scroll Bar */
