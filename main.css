@@ -58,7 +58,7 @@ table {
 
 *{
     font-family: 'Lato';
-    animation: opac 0.5s;
+    animation: opac 0.2s;
     margin: none !important;
     overflow: hidden;
 }
@@ -111,11 +111,21 @@ html, body {
      border-top: none;
  }
 
+/* Scroll Bar */
+::-webkit-scrollbar {     
+    background-color: #fff;
+    width: .5em;
+}
 
+::-webkit-scrollbar-thumb:window-inactive,
+::-webkit-scrollbar-thumb {
+    background:  #dedede;
+    border-radius: 5px;
+}
 
 
 #editor {
-    padding: 0px 15px 5px 15px;
+    padding: 10px 15px 5px 15px;
     overflow: auto;
     height: 100%;
 }
