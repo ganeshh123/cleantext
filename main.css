@@ -10,7 +10,7 @@ a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
-dl, dt, dd, ol, ul, li,
+dl, dt, dd,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
 article, aside, canvas, details, embed, 
@@ -31,9 +31,6 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
     font-size: 16px;
-}
-ol, ul {
-	list-style: none;
 }
 blockquote, q {
 	quotes: none;
@@ -60,7 +57,6 @@ table {
 *{
     font-family: 'Lato';
     animation: opac 0.2s;
-    margin: none !important;
     overflow: hidden;
 }
 @keyframes opac {
@@ -74,6 +70,7 @@ table {
 *:focus {
     outline: none
 }
+
 
 /* Title Bar */
 .titlebar {
@@ -97,6 +94,8 @@ table {
     align-items: center
 }
 
+
+/* Container Styles */
 html, body {
     width: 100%;
     height: 100%;
@@ -166,4 +165,21 @@ h3 {
 p {
     font-size: 16px;
     line-height: 1.75;
+}
+
+ul {
+    list-style-type: disc;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+ol{
+    list-style-type: decimal;
+}
+
+li {
+    font-size: 18px;
+    line-height: 1.875em;
+    text-align: justify;
+    letter-spacing: 1px;
 }
