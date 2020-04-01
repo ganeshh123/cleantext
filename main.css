@@ -108,6 +108,9 @@ html, body {
      justify-content: flex-start;
      overflow: hidden;
  }
+ .container-after-titlebar{
+     overflow: hidden !important;
+ }
 
  #appContainer{
      background-color: white;
@@ -117,6 +120,7 @@ html, body {
      border-top: none;
      justify-content: 'center';
      flex-grow: 1;
+     overflow: auto;
  }
 
 /* Scroll Bar */
