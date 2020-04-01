@@ -143,6 +143,7 @@ html, body {
     max-width: 1200px;
     margin: auto;
     overflow: auto;
+    border-radius: 5px;
 }
 
 
