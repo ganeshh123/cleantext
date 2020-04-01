@@ -57,7 +57,6 @@ table {
 *{
     font-family: 'Lato';
     animation: opac 0.2s;
-    /*overflow: hidden; */
 }
 @keyframes opac {
     from {
@@ -111,7 +110,6 @@ html, body {
      height: 100%;
      border-top: none;
      justify-content: 'center';
-     overflow: hidden;
  }
 
 /* Scroll Bar */
@@ -129,7 +127,6 @@ html, body {
 
 #editor {
     padding: 10px 15px 5px 15px;
-    overflow: auto;
     height: 100%;
     width: 100%;
     max-width: 1200px;
