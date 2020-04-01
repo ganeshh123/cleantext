@@ -102,6 +102,12 @@ html, body {
     margin: 0;
     padding: 0;
  }
+ body{
+     display: flex;
+     flex-direction: column;
+     justify-content: flex-start;
+     overflow: hidden;
+ }
 
  #appContainer{
      background-color: white;
@@ -110,6 +116,7 @@ html, body {
      height: 100%;
      border-top: none;
      justify-content: 'center';
+     flex-grow: 1;
  }
 
 /* Scroll Bar */
