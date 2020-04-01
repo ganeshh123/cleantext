@@ -111,6 +111,7 @@ html, body {
      height: 100%;
      border-top: none;
      justify-content: 'center';
+     overflow: auto;
  }
 
 /* Scroll Bar */
