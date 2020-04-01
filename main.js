@@ -6,7 +6,7 @@ const jsdom = require('jsdom')
 const { plugin } = require('electron-frameless-window-plugin')
 
 /* App Variables */
-const converter = new showdown.Converter()
+const converter = new showdown.Converter({tables: true})
 const isMac = process.platform === 'darwin'
 const jsDom = new jsdom.JSDOM();
 
