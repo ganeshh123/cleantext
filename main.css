@@ -1,17 +1,242 @@
 @font-face {
     font-family: "Lato";
     src: url(./Lato.ttf) format("truetype");
-  }
+}
+
+/* CSS Reset */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+    vertical-align: baseline;
+    -webkit-font-smoothing: auto;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+    font-size: 16px;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+
+/* Global Styling */
+@font-face {
+    font-family: "Lato";
+    src: url(./Lato.ttf) format("truetype");
+}
 
 *{
     font-family: 'Lato';
+    animation: opac 0.2s;
 }
-body {
-    background-color:white;
-}
-#editor {
-    padding: 0px 15px 5px 15px;
+@keyframes opac {
+    from {
+        opacity: 0
+    }
+    to {
+        opacity: 1
+    }
 }
 *:focus {
     outline: none
 }
+
+
+/* Title Bar */
+.titlebar {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: none !important;
+    border-top: thin solid black;
+    border-left: thin solid black;
+    border-right: thin solid black;
+}
+.window-title {
+    font-size: 15px !important;
+}
+.container-after-titlebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    border: none;
+}
+#macTitleBar {
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+
+/* Container Styles */
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+ }
+ body{
+     display: flex;
+     flex-direction: column;
+     justify-content: flex-start;
+     overflow: hidden;
+ }
+ .container-after-titlebar{
+     overflow: hidden !important;
+ }
+
+ #appContainer{
+     background-color: white;
+     border-bottom-left-radius: 5px;
+     border-bottom-right-radius: 5px;
+     height: 100%;
+     border-top: none;
+     justify-content: 'center';
+     flex-grow: 1;
+     overflow: hidden;
+     border-bottom: thin solid black;
+     border-left: thin solid black;
+     border-right: thin solid black;
+ }
+
+/* Scroll Bar */
+::-webkit-scrollbar {     
+    background-color: #fff;
+    width: .5em;
+}
+
+::-webkit-scrollbar-thumb:window-inactive,
+::-webkit-scrollbar-thumb {
+    background:  #dedede;
+    border-radius: 5px;
+}
+
+
+#editor {
+    padding: 10px 15px 5px 15px;
+    height: 100%;
+    width: auto;
+    max-width: 1200px;
+    margin: auto;
+    overflow: auto;
+    border-radius: 5px;
+}
+
+
+
+
+
+/* Document Styling */
+h1, h2, h3, h4, h5, h6, p {
+    /* white-space: pre-wrap;
+    word-break: break-word; */
+    caret-color: rgb(55, 53, 47);
+    padding: 3px 2px;
+    line-height: 1.3;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 1.875em;
+    line-height: 1.5;
+}
+
+h2{
+    font-weight: 600;
+    font-size: 1.5em;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 1.25em;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+ul {
+    list-style-type: disc;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+ol{
+    list-style-type: decimal;
+}
+
+li {
+    font-size: 18px;
+    line-height: 1.875em;
+    text-align: justify;
+    letter-spacing: 1px;
+}
+
+pre {
+    display: block;
+    background-color: #eee;
+    border-radius: 5px;
+    padding-left: 6px;
+    padding-right: 2px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+code {
+    background-color: #eee;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+blockquote{
+    font-size: 1.4em;
+    width: 60%;
+    margin: 30px auto 30px 40px;
+    font-family: Open Sans;
+    font-style: italic;
+    color: #555555;
+    padding: 0.5em 10px 2em 20px;
+    border-left: 8px solid #a7a7a7;
+    line-height: 1.6;
+    position: relative;
+    background: #EDEDED;
+    border-radius: 5px;
+  }
+  
+  blockquote span{
+    display:block;
+    color:#333333;
+    font-style: normal;
+    font-weight: bold;
+    margin-top:1em;
+  }

@@ -3,9 +3,10 @@ const { app, BrowserWindow, Menu, dialog, ipcMain} = require('electron')
 const fs = require ('fs')
 const showdown  = require('showdown')
 const jsdom = require('jsdom')
+const { plugin } = require('electron-frameless-window-plugin')
 
 /* App Variables */
-const converter = new showdown.Converter()
+const converter = new showdown.Converter({tables: true})
 const isMac = process.platform === 'darwin'
 const jsDom = new jsdom.JSDOM();
 
@@ -15,11 +16,14 @@ function createMainWindow() {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
-        frame: isMac,
+        frame: false,
+        transparent: !isMac,
+        fullscreen: false,
+        titleBarStyle: 'hidden',
         webPreferences: {
             nodeIntegration: true
         },
-
+        
     })
 
     let appMenuTemplate = [{
@@ -65,7 +69,7 @@ function createMainWindow() {
               { role: 'zoomout' },
               { role: 'resetzoom' },
               { type: 'separator' },
-              { role: 'togglefullscreen' }
+              //{ role: 'togglefullscreen' }
             ]
         }
     ]
@@ -103,6 +107,12 @@ app.whenReady().then(() => {
 
 })
 
+if(!isMac){
+    plugin({
+        setGlobal: true
+      })
+}
+
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
     // On macOS it is common for applications and their menu bar
@@ -137,13 +147,19 @@ const openFile = () => {
         return;
     }
 
+    if(!isMac){
+        filenameSplit = filenames[0].split('\\')
+    }else{
+        filenameSplit = filenames[0].split('/')
+    }
+    win.webContents.send('fileOpen:name', filenameSplit[filenameSplit.length -1])
+
     fs.readFile(filenames[0], 'utf8', (err, data) => {
         if(err){
             throw err
         }
 
         win.webContents.send('fileOpen:content', converter.makeHtml(data))
-        
     })
 }
 
