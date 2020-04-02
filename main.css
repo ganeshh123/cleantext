@@ -76,6 +76,9 @@ table {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
     box-shadow: none !important;
+    border-top: thin solid black;
+    border-left: thin solid black;
+    border-right: thin solid black;
 }
 .window-title {
     font-size: 15px !important;
@@ -121,6 +124,9 @@ html, body {
      justify-content: 'center';
      flex-grow: 1;
      overflow: hidden;
+     border-bottom: thin solid black;
+     border-left: thin solid black;
+     border-right: thin solid black;
  }
 
 /* Scroll Bar */
