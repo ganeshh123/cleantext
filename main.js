@@ -27,7 +27,7 @@ function createMainWindow() {
     })
 
     let appMenuTemplate = [{
-            label: 'CleanText',
+            label: 'File',
             submenu: [
                 {label: 'Open', click: openFile, accelerator: 'CmdOrCtrl+O'},
                 {label: 'Save', click: saveRequest, accelerator: 'CmdOrCtrl+S'},
@@ -76,7 +76,9 @@ function createMainWindow() {
             label: 'Format',
             submenu: [
               {label: 'Bold', click: () => {sendFormatCommand('bold')}, accelerator: 'CmdOrCtrl+B'},
-              {label: 'Italic', click: () => {sendFormatCommand('italic')}, accelerator: 'CmdOrCtrl+I'}
+              {label: 'Italic', click: () => {sendFormatCommand('italic')}, accelerator: 'CmdOrCtrl+I'},
+              { type: 'separator' },
+
             ]
         }
     ]

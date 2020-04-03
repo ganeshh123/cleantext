@@ -133,12 +133,14 @@ html, body {
 ::-webkit-scrollbar {     
     background-color: #fff;
     width: .5em;
+    cursor: default;
 }
 
 ::-webkit-scrollbar-thumb:window-inactive,
 ::-webkit-scrollbar-thumb {
     background:  #dedede;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 
