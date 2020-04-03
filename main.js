@@ -75,7 +75,8 @@ function createMainWindow() {
         {
             label: 'Format',
             submenu: [
-              {label: 'Bold', click: sendFormatCommand('bold'), accelerator: 'CmdOrCtrl+B'}
+              {label: 'Bold', click: () => {sendFormatCommand('bold')}, accelerator: 'CmdOrCtrl+B'},
+              {label: 'Italic', click: () => {sendFormatCommand('italic')}, accelerator: 'CmdOrCtrl+I'}
             ]
         }
     ]
@@ -176,8 +177,8 @@ const saveRequest = () => {
 }
 
 /* Sends a command to the editor renderer to format the text */
-const sendFormatCommand = (command) => {
-    win.webContents.send('formatCommand', command)
+const sendFormatCommand = () => {
+    win.webContents.send('formatCommand', 'bold')
 }
 
 /* Lets user save files to storage */
