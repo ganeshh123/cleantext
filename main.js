@@ -214,6 +214,11 @@ ipcMain.on('fileSave:content', function(e, data){
         if(err){
             throw err
         }
-        console.log('File Saved!')
+        if(!isMac){
+            filenameSplit = filename.split('\\')
+        }else{
+            filenameSplit = filename.split('/')
+        }
+        win.webContents.send('fileSaved:name', filenameSplit[filenameSplit.length -1])
     })
 })

@@ -44,6 +44,15 @@ ipcRenderer.on('requestSave', (e, data) => {
   ipcRenderer.send('fileSave:content', documentData)
 });
 
+/* Displays file name on titlebar when saving */
+ipcRenderer.on('fileSaved:name', (e, data) => {
+  const titleText = data + ' - CleanText'
+  if(process.platform === 'darwin'){
+    document.getElementById('macTitleBar').innerText = titleText
+  }
+  titleBar.updateTitle(titleText)
+});
+
 /* Formats the text upon receiving a command */
 ipcRenderer.on('formatCommand', (e, command) => {
     document.execCommand(command);
