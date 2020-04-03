@@ -6,7 +6,7 @@ const jsdom = require('jsdom')
 const { plugin } = require('electron-frameless-window-plugin')
 
 /* App Variables */
-const converter = new showdown.Converter({tables: true})
+const converter = new showdown.Converter({tables: true, underline: true})
 const isMac = process.platform === 'darwin'
 const jsDom = new jsdom.JSDOM();
 
@@ -76,9 +76,16 @@ function createMainWindow() {
             label: 'Format',
             submenu: [
               {label: 'Bold', click: () => {sendFormatCommand('bold')}, accelerator: 'CmdOrCtrl+B'},
+              {label: 'Underline', click: () => {sendFormatCommand('underline')}, accelerator: 'CmdOrCtrl+U'},
               {label: 'Italic', click: () => {sendFormatCommand('italic')}, accelerator: 'CmdOrCtrl+I'},
               { type: 'separator' },
-
+              {label: 'Large Title', click: () => {sendFormatCommandWithArgs('formatBlock', '<h1>')}, accelerator: 'CmdOrCtrl+1'},
+              {label: 'Small Title', click: () => {sendFormatCommandWithArgs('formatBlock', '<h2>')}, accelerator: 'CmdOrCtrl+2'},
+              {label: 'Subtitle', click: () => {sendFormatCommandWithArgs('formatBlock', '<h3>')}, accelerator: 'CmdOrCtrl+3'},
+              {label: 'Paragraph', click: () => {sendFormatCommandWithArgs('formatBlock', '<p>')}, accelerator: 'CmdOrCtrl+4'},
+              { type: 'separator' },
+              {label: 'Bullet List', click: () => {sendFormatCommand('insertUnorderedList')}, accelerator: 'CmdOrCtrl+L'},
+              {label: 'Numbered List', click: () => {sendFormatCommand('insertOrderedList')}, accelerator: 'CmdOrCtrl+N'},
             ]
         }
     ]
@@ -179,8 +186,13 @@ const saveRequest = () => {
 }
 
 /* Sends a command to the editor renderer to format the text */
-const sendFormatCommand = () => {
-    win.webContents.send('formatCommand', 'bold')
+const sendFormatCommand = (command) => {
+    win.webContents.send('formatCommand', command)
+}
+
+/* Sends a command to the editor renderer to format the text with arguments */
+const sendFormatCommandWithArgs = (command, arguments) => {
+    win.webContents.send('formatCommandWithArgs',{command, arguments})
 }
 
 /* Lets user save files to storage */

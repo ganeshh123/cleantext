@@ -49,4 +49,9 @@ ipcRenderer.on('formatCommand', (e, command) => {
     document.execCommand(command);
 });
 
+/* Formats the text upon receiving a command with arguments */
+ipcRenderer.on('formatCommandWithArgs', (e, data) => {
+  document.execCommand(data.command, false, data.arguments);
+});
+
 
