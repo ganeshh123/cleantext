@@ -71,6 +71,12 @@ function createMainWindow() {
               { type: 'separator' },
               //{ role: 'togglefullscreen' }
             ]
+        },
+        {
+            label: 'Format',
+            submenu: [
+              {label: 'Bold', click: sendFormatCommand('bold'), accelerator: 'CmdOrCtrl+B'}
+            ]
         }
     ]
 
@@ -167,6 +173,11 @@ const openFile = () => {
     in html format to save to storage */
 const saveRequest = () => {
     win.webContents.send('requestSave', {})
+}
+
+/* Sends a command to the editor renderer to format the text */
+const sendFormatCommand = (command) => {
+    win.webContents.send('formatCommand', command)
 }
 
 /* Lets user save files to storage */
