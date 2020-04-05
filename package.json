@@ -12,9 +12,7 @@
   "dependencies": {
     "custom-electron-titlebar": "^3.2.2-hotfix62",
     "electron-frameless-window-plugin": "^1.0.4",
-    "electron-reload": "^1.5.0",
     "jsdom": "^16.2.1",
-    "materialize-css": "^1.0.0-rc.2",
     "showdown": "^1.9.1"
   }
 }
