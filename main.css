@@ -96,7 +96,14 @@ table {
     align-items: center;
     background-color: white;
 }
-
+.open {
+    background-color: black !important;
+    color: white !important;
+}
+.action-item:hover{
+    background-color: black !important;
+    color: white !important;
+}
 
 /* Container Styles */
 html, body {
@@ -127,6 +134,7 @@ html, body {
      border-bottom: thin solid black;
      border-left: thin solid black;
      border-right: thin solid black;
+     padding-bottom: 20px;
  }
 
 /* Scroll Bar */
@@ -145,7 +153,7 @@ html, body {
 
 
 #editor {
-    padding: 10px 15px 5px 15px;
+    padding: 10px 15px 20px 5px;
     height: 100%;
     width: auto;
     max-width: 1200px;
@@ -168,17 +176,20 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 h1 {
+    margin-top: 30px;
     font-weight: 600;
     font-size: 1.875em;
     line-height: 1.5;
 }
 
 h2{
+    margin-top: 20px;
     font-weight: 600;
     font-size: 1.5em;
 }
 
 h3 {
+    margin-top: 10px;
     font-weight: 600;
     font-size: 1.25em;
 }
