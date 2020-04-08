@@ -9,11 +9,12 @@ const { plugin } = require('electron-frameless-window-plugin')
 const converter = new showdown.Converter({tables: true, underline: true})
 const isMac = process.platform === 'darwin'
 const jsDom = new jsdom.JSDOM();
+let win;
 
 /* Creates the Main Window of the Application */
 function createMainWindow() {
     // Create the window window.
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
         frame: false,
@@ -37,12 +38,12 @@ function createMainWindow() {
         {
             label: 'Edit',
             submenu: [
-                { role: 'undo' },
-                { role: 'redo' },
+                {label: 'Undo',  click: focusAndPerform('undo'),  accelerator: 'CmdOrCtrl+Z'},
+                {label: 'Redo',  click: focusAndPerform('redo'),  accelerator: 'CmdOrCtrl+Y'},
                 { type: 'separator' },
-                { role: 'cut' },
-                { role: 'copy' },
-                { role: 'paste' },
+                {label: 'Cut',  click: focusAndPerform('cut'),  accelerator: 'CmdOrCtrl+X'},
+                {label: 'Copy',  click: focusAndPerform('copy'),  accelerator: 'CmdOrCtrl+C'},
+                {label: 'Paste',  click: focusAndPerform('paste'),  accelerator: 'CmdOrCtrl+V'},
                 ...(isMac ? [
                   { role: 'pasteAndMatchStyle' },
                   { role: 'delete' },
@@ -56,20 +57,10 @@ function createMainWindow() {
                     ]
                   }
                 ] : [
-                  { role: 'delete' },
+                  {label: 'Delete',  click: focusAndPerform('delete')},
                   { type: 'separator' },
-                  { role: 'selectAll' }
+                  {label: 'Select All',  click: focusAndPerform('selectAll'),  accelerator: 'CmdOrCtrl+A'}
                 ])
-            ]
-        },
-        {
-            label: 'View',
-            submenu: [
-              { role: 'zoomin' },
-              { role: 'zoomout' },
-              { role: 'resetzoom' },
-              { type: 'separator' },
-              //{ role: 'togglefullscreen' }
             ]
         },
         {
@@ -222,3 +213,9 @@ ipcMain.on('fileSave:content', function(e, data){
         win.webContents.send('fileSaved:name', filenameSplit[filenameSplit.length -1])
     })
 })
+
+/* Fix for Windows */
+function focusAndPerform(methodName) {
+    win.webContents.focus()
+    win.webContents[methodName]()
+}
