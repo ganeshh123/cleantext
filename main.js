@@ -193,7 +193,7 @@ ipcMain.on('fileSave:content', function(e, data){
     const filename = dialog.showSaveDialogSync(win, {
         properties: ['saveFile'],
         filters: [
-            {name: 'Documents', extensions: ['md', 'markdown']}
+            {name: 'Documents', extensions: ['md', 'markdown', 'txt']}
         ]
     })
     if(!filename){
