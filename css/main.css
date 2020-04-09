@@ -162,7 +162,10 @@ html, body {
     border-radius: 5px;
 }
 
-
+/* Control Panel */
+#controlPanel {
+    height: 30px;
+}
 
 
 
