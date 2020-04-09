@@ -4,6 +4,7 @@ const fs = require ('fs')
 const showdown  = require('showdown')
 const jsdom = require('jsdom')
 const { plugin } = require('electron-frameless-window-plugin')
+const path = require('path');
 
 /* App Variables */
 const converter = new showdown.Converter({tables: true, underline: true})
@@ -110,7 +111,7 @@ app.whenReady().then(() => {
     win = createMainWindow()
 
     /* Load Editor File into Main Window */
-    win.loadFile('editor.html')
+    win.loadFile(path.join(__dirname, '../html/editor.html'))
 
 })
 
