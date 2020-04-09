@@ -5,15 +5,25 @@
     <title>Clean Text</title>
     <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <link rel="stylesheet" href="../assets/main.css" />
-    <script src="../js/main.js"></script>
+    <link href="../css/material-icons.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="../css/main.css" />
+    <script defer src="../js/main.js"></script>
     <script defer src="../js/editor.js"></script>
+    <script defer type="text/javascript" src="../js/materialize.js"></script>
   </head>
   <body>
     <div id="appContainer">
+      <!--Control Panel-->
       <div id="controlPanel">
-        
+        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_bold</i></a>
+        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_underline</i></a>
+        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_italic</i></a>
+        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_list_bulleted</i></a>
+        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_list_numbered</i></a>
       </div>
+
+      <!-- Editor -->
       <div id="editor" contenteditable="true">
         
       </div>
