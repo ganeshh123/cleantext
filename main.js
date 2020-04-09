@@ -217,6 +217,8 @@ ipcMain.on('fileSave:content', function(e, data){
 
 /* Fix for Windows */
 function focusAndPerform(methodName) {
-    win.webContents.focus()
-    win.webContents[methodName]()
+    return function(menuItem, window) {
+        window.webContents.focus()
+        window.webContents[methodName]()
+      }
 }
