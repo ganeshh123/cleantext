@@ -10,6 +10,8 @@ if(process.platform === 'darwin'){
   macTitleBar.innerText = 'CleanText'
   macTitleBar.id = 'macTitleBar'
   bodyDOM.prepend(macTitleBar)
+  appContainerDom = document.getElementById('appContainer')
+  appContainerDom.style.border = 'none'
 }
 
 

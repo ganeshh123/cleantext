@@ -109,7 +109,7 @@ table {
 .action-menu-item, .menubar-menu-container{
     background-color: white !important;
 }
-.action-item:hover, .action-menu-item:hover{
+.action-item:hover, .action-menu-item:hover, .menubar-menu-button:hover{
     background-color: black !important;
     color: white !important;
 }
