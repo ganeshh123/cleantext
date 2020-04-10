@@ -16,11 +16,13 @@
     <div id="appContainer">
       <!--Control Panel-->
       <div id="controlPanel">
-        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_bold</i></a>
-        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_underline</i></a>
-        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_italic</i></a>
-        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_list_bulleted</i></a>
-        <a class="waves-effect btn-flat panelButton"><i class="material-icons">format_list_numbered</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('undo')"><i class="material-icons">undo</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('redo')"><i class="material-icons">redo</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('bold')" style='margin-left: 20px;'><i class="material-icons">format_bold</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('underline')"><i class="material-icons">format_underline</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('italic')"><i class="material-icons">format_italic</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('insertUnorderedList')"style='margin-left: 20px;'><i class="material-icons">format_list_bulleted</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('insertOrderedList')"><i class="material-icons">format_list_numbered</i></a>
       </div>
 
       <!-- Editor -->

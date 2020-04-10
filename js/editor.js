@@ -63,4 +63,13 @@ ipcRenderer.on('formatCommandWithArgs', (e, data) => {
   document.execCommand(data.command, false, data.arguments);
 });
 
+executeCommand = (command, arg) => {
+  if(!arg){
+    document.execCommand(command)
+  }
+  else{
+    document.execCommand(command), arg
+  }
+}
+
 
