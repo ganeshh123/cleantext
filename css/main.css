@@ -101,9 +101,22 @@ table {
     background-color: black !important;
     color: white !important;
 }
-.action-item:hover{
+.action-item{
+    margin-left: 0px !important;
+    font-weight: bold;
+    background-color: white !important;
+}
+.action-menu-item, .menubar-menu-container{
+    background-color: white !important;
+}
+.action-item:hover, .action-menu-item:hover{
     background-color: black !important;
     color: white !important;
+}
+.menubar-menu-container{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .menubar-menu-title{
     font-size: 15px;
