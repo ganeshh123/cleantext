@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Clean Text</title>
+    <!-- https://electronjs.org/docs/tutorial/security#csp-meta-tag -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <link href="../css/material-icons.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
+    <link rel="stylesheet" href="../css/main.css" />
+    <script defer src="../js/main.js"></script>
+    <script defer src="../js/editor.js"></script>
+    <script defer type="text/javascript" src="../js/materialize.js"></script>
+  </head>
+  <body>
+    <div id="appContainer">
+      <!--Control Panel-->
+      <div id="controlPanel">
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('undo')"><i class="material-icons">undo</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('redo')"><i class="material-icons">redo</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('bold')" style='margin-left: 20px;'><i class="material-icons">format_bold</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('underline')"><i class="material-icons">format_underline</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('italic')"><i class="material-icons">format_italic</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('insertUnorderedList')"style='margin-left: 20px;'><i class="material-icons">format_list_bulleted</i></a>
+        <a class="waves-effect btn-flat panelButton" onclick="executeCommand('insertOrderedList')"><i class="material-icons">format_list_numbered</i></a>
+      </div>
+
+      <!-- Editor -->
+      <div id="editor" contenteditable="true">
+        
+      </div>
+    </div>
+
+  </body>
+
+</html>

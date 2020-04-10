@@ -10,6 +10,8 @@ if(process.platform === 'darwin'){
   macTitleBar.innerText = 'CleanText'
   macTitleBar.id = 'macTitleBar'
   bodyDOM.prepend(macTitleBar)
+  appContainerDom = document.getElementById('appContainer')
+  appContainerDom.style.border = 'none'
 }
 
 
@@ -62,5 +64,14 @@ ipcRenderer.on('formatCommand', (e, command) => {
 ipcRenderer.on('formatCommandWithArgs', (e, data) => {
   document.execCommand(data.command, false, data.arguments);
 });
+
+executeCommand = (command, arg) => {
+  if(!arg){
+    document.execCommand(command)
+  }
+  else{
+    document.execCommand(command), arg
+  }
+}
 
 

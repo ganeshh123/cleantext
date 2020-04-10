@@ -6,7 +6,7 @@
 /* CSS Reset */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
+ abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
 b, u, i, center,
@@ -82,6 +82,7 @@ table {
 }
 .window-title {
     font-size: 15px !important;
+    font-weight: bold;
 }
 .container-after-titlebar {
     display: flex;
@@ -100,9 +101,29 @@ table {
     background-color: black !important;
     color: white !important;
 }
-.action-item:hover{
+.action-item{
+    margin-left: 0px !important;
+    font-weight: bold;
+    background-color: white !important;
+}
+.action-menu-item, .menubar-menu-container{
+    background-color: white !important;
+}
+.action-item:hover, .action-menu-item:hover, .menubar-menu-button:hover{
     background-color: black !important;
     color: white !important;
+}
+.menubar-menu-container{
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.menubar-menu-title{
+    font-size: 15px;
+    font-weight: bold;
+}
+.window-icon{
+    font-weight: bold;
 }
 
 /* Container Styles */
@@ -162,7 +183,25 @@ html, body {
     border-radius: 5px;
 }
 
+/* Control Panel */
+#controlPanel {
+    height: 30px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+.panelButton {
+    margin: 0px;
+    padding: 0px !important;
+}
 
+.material-icons{
+    vertical-align: middle !important;
+    margin: 5px !important;
+}
 
 
 
@@ -173,6 +212,12 @@ h1, h2, h3, h4, h5, h6, p {
     caret-color: rgb(55, 53, 47);
     padding: 3px 2px;
     line-height: 1.3;
+}
+
+h1:first-child, h2:first-child,
+ h3:first-child, h4:first-child, 
+ h5:first-child, h6:first-child, p { 
+    margin-top: 5px !important;
 }
 
 h1 {
@@ -200,13 +245,18 @@ p {
 }
 
 ul {
-    list-style-type: disc;
+    list-style-type: disc !important;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     padding-inline-start: 40px;
 }
 ol{
     list-style-type: decimal;
+}
+
+ul li{
+    list-style-type: disc !important;
+    margin-left: 40px;
 }
 
 li {

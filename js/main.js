@@ -4,16 +4,18 @@ const fs = require ('fs')
 const showdown  = require('showdown')
 const jsdom = require('jsdom')
 const { plugin } = require('electron-frameless-window-plugin')
+const path = require('path');
 
 /* App Variables */
 const converter = new showdown.Converter({tables: true, underline: true})
 const isMac = process.platform === 'darwin'
 const jsDom = new jsdom.JSDOM();
+let win;
 
 /* Creates the Main Window of the Application */
 function createMainWindow() {
     // Create the window window.
-    const win = new BrowserWindow({
+    win = new BrowserWindow({
         width: 800,
         height: 600,
         frame: false,
@@ -37,12 +39,12 @@ function createMainWindow() {
         {
             label: 'Edit',
             submenu: [
-                { role: 'undo' },
-                { role: 'redo' },
+                {label: 'Undo',  click: focusAndPerform('undo'),  accelerator: 'CmdOrCtrl+Z'},
+                {label: 'Redo',  click: focusAndPerform('redo'),  accelerator: 'CmdOrCtrl+Y'},
                 { type: 'separator' },
-                { role: 'cut' },
-                { role: 'copy' },
-                { role: 'paste' },
+                {label: 'Cut',  click: focusAndPerform('cut'),  accelerator: 'CmdOrCtrl+X'},
+                {label: 'Copy',  click: focusAndPerform('copy'),  accelerator: 'CmdOrCtrl+C'},
+                {label: 'Paste',  click: focusAndPerform('paste'),  accelerator: 'CmdOrCtrl+V'},
                 ...(isMac ? [
                   { role: 'pasteAndMatchStyle' },
                   { role: 'delete' },
@@ -56,20 +58,10 @@ function createMainWindow() {
                     ]
                   }
                 ] : [
-                  { role: 'delete' },
+                  {label: 'Delete',  click: focusAndPerform('delete')},
                   { type: 'separator' },
-                  { role: 'selectAll' }
+                  {label: 'Select All',  click: focusAndPerform('selectAll'),  accelerator: 'CmdOrCtrl+A'}
                 ])
-            ]
-        },
-        {
-            label: 'View',
-            submenu: [
-              { role: 'zoomin' },
-              { role: 'zoomout' },
-              { role: 'resetzoom' },
-              { type: 'separator' },
-              //{ role: 'togglefullscreen' }
             ]
         },
         {
@@ -119,7 +111,7 @@ app.whenReady().then(() => {
     win = createMainWindow()
 
     /* Load Editor File into Main Window */
-    win.loadFile('editor.html')
+    win.loadFile(path.join(__dirname, '../html/editor.html'))
 
 })
 
@@ -202,7 +194,8 @@ ipcMain.on('fileSave:content', function(e, data){
     const filename = dialog.showSaveDialogSync(win, {
         properties: ['saveFile'],
         filters: [
-            {name: 'Documents', extensions: ['md', 'markdown']}
+            {name: 'Markdown Document', extensions: ['md', 'markdown']},
+            {name: 'Text File', extensions: ['txt']}
         ]
     })
     if(!filename){
@@ -222,3 +215,11 @@ ipcMain.on('fileSave:content', function(e, data){
         win.webContents.send('fileSaved:name', filenameSplit[filenameSplit.length -1])
     })
 })
+
+/* Fix for Windows */
+function focusAndPerform(methodName) {
+    return function(menuItem, window) {
+        window.webContents.focus()
+        window.webContents[methodName]()
+      }
+}
