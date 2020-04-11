@@ -2,6 +2,9 @@
 const customTitlebar = require('custom-electron-titlebar');
 let titleBar
 let macTitleBar
+require('jquery')
+require('hammerjs')
+require('materialize-css')
 
 /* Adjustments for Mac */
 if(process.platform === 'darwin'){
@@ -57,21 +60,40 @@ ipcRenderer.on('fileSaved:name', (e, data) => {
 
 /* Formats the text upon receiving a command */
 ipcRenderer.on('formatCommand', (e, command) => {
+    document.execCommand('removeFormat')
     document.execCommand(command);
 });
 
 /* Formats the text upon receiving a command with arguments */
 ipcRenderer.on('formatCommandWithArgs', (e, data) => {
+  document.execCommand('removeFormat')
   document.execCommand(data.command, false, data.arguments);
 });
 
 executeCommand = (command, arg) => {
+  document.execCommand('removeFormat')
   if(!arg){
     document.execCommand(command)
   }
   else{
-    document.execCommand(command), arg
+    document.execCommand(command, false, arg)
   }
 }
+
+/*Format Dropdown*/
+$('.formatSelectTrigger').dropdown({
+  inDuration: 300,
+  outDuration: 225,
+  alignment: 'left', // Displays dropdown with edge aligned to the left of button
+  constrainWidth: false,
+  coverTrigger: false,
+  onCloseEnd: () => {
+    var editor = document.getElementById('editor');
+    setTimeout(function() {
+      editor.focus();
+    }, 0);
+  }
+}
+);
 
 
