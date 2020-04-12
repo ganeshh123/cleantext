@@ -196,6 +196,8 @@ html, body {
     overflow: auto;
     border-radius: 5px;
     align-self: center;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Control Panel */
@@ -352,7 +354,10 @@ blockquote{
   }
 
   img {
-      border-radius: 3px;
-      box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
-      display: block;
+    border-radius: 3px;
+    box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+    display: block;
+    width: auto;
+    max-width:1000px;
+    margin: 20px auto 20px 30px;
   }
