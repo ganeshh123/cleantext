@@ -350,3 +350,9 @@ blockquote{
     font-weight: bold;
     margin-top:1em;
   }
+
+  img {
+      border-radius: 3px;
+      box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+      display: block;
+  }

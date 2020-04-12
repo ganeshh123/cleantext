@@ -6,6 +6,9 @@ require('jquery')
 require('hammerjs')
 require('materialize-css')
 
+/* Variables */
+let selectionRange;
+
 /* Adjustments for Mac */
 if(process.platform === 'darwin'){
   bodyDOM = document.body
@@ -80,16 +83,48 @@ executeCommand = (command, arg) => {
   }
 }
 
+/* https://gist.github.com/dantaex/543e721be845c18d2f92652c0ebe06aa */
+
+saveSelection= () =>  {
+  if (window.getSelection) {
+      var sel = window.getSelection();
+      if (sel.getRangeAt && sel.rangeCount) {
+          return sel.getRangeAt(0);
+      }
+  } else if (document.selection && document.selection.createRange) {
+      return document.selection.createRange();
+  }
+  return null;
+}
+
+restoreSelection = (range) => {
+  if (range) {
+      if (window.getSelection) {
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+      } else if (document.selection && range.select) {
+          range.select();
+      }
+  }
+}
+
+/* https://gist.github.com/dantaex/543e721be845c18d2f92652c0ebe06aa */
+
+/* Saves Selection for Inserting Items from Modals */
+saveSel = () =>{
+  selectionRange = saveSelection();
+  console.log(selectionRange)
+}
+
 /* Inserts an Image into the document */
 insertImage = () => {
+  restoreSelection(selectionRange);
   imageSource = document.getElementById("image_url_input").value;
   if(imageSource != '' && imageSource != 'null'){
     console.log('Valid URL')
     console.log(imageSource)
-    
-    var img = document.createElement('img');
-    img.src = imageSource
-    document.execCommand('insertHTML', false, img.outerHTML)
+    document.execCommand('insertImage', false, imageSource)
   }
 }
 
