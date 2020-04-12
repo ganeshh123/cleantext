@@ -80,6 +80,20 @@ executeCommand = (command, arg) => {
   }
 }
 
+/* Inserts an Image into the document */
+insertImage = () => {
+  imageSource = document.getElementById("image_url_input").value;
+  if(imageSource != '' && imageSource != 'null'){
+    console.log('Valid URL')
+    console.log(imageSource)
+    
+    var img = document.createElement('img');
+    img.src = imageSource
+    document.execCommand('insertHTML', false, img.outerHTML)
+  }
+}
+
+
 /*Format Dropdown*/
 $('.formatSelectTrigger').dropdown({
   inDuration: 300,
@@ -96,4 +110,9 @@ $('.formatSelectTrigger').dropdown({
 }
 );
 
+
+/* Image Insert Modal */
+$(document).ready(function(){
+  $('.modal').modal();
+});
 
