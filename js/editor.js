@@ -21,6 +21,10 @@ if(process.platform === 'darwin'){
 }
 
 
+setTimeout(function() {
+    document.getElementById('editor').focus();
+}, 0);
+
 /* Title Bar */
 if(process.platform != 'darwin'){
   titleBar = new customTitlebar.Titlebar({
