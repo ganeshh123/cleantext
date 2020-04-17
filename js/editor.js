@@ -155,3 +155,13 @@ $(document).ready(function(){
   $('.modal').modal();
 });
 
+
+
+/* UI Autohide */
+var i = null;
+$("#appContainer").mousemove(function() {
+    $("#controlPanel").css("visibility","visible");
+    i = setTimeout(() => {
+      $("#controlPanel").css("visibility","hidden");
+    }, 5000);
+})
