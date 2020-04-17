@@ -79,6 +79,9 @@ ipcRenderer.on('formatCommandWithArgs', (e, data) => {
 
 executeCommand = (command, arg) => {
   document.execCommand('removeFormat')
+  if(command == 'removeFormat'){
+    document.execCommand('formatBlock', false, 'div')
+  }
   if(!arg){
     document.execCommand(command)
   }
@@ -193,10 +196,21 @@ insertImageURL = () => {
 }
 
 /* UI Autohide */
-var i = null;
+let uiAutoHideTimer = null;
+$( "#editor" ).keypress(function() {
+  uiAutoHideTimer = setTimeout(() => {
+    if(uiAutoHideTimer != null){
+        $("#controlPanel").stop().fadeTo(10, 0);
+      if(process.platform == 'win32'){
+        $(".menubar").stop().fadeTo(10, 0);
+      }
+    }
+  }, 5000)
+});
 $("#appContainer").mousemove(function() {
-    $("#controlPanel").stop().fadeTo('fast', 1);
-    i = setTimeout(() => {
-      $("#controlPanel").stop().fadeTo('slow', 0);
-    }, 5000);
+    uiAutoHideTimer = null
+    $("#controlPanel").stop().fadeTo(10, 1);
+    if(process.platform == 'win32'){
+      $(".menubar").stop().fadeTo(10, 1);
+    }
 })
