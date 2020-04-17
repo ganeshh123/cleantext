@@ -118,16 +118,13 @@ restoreSelection = (range) => {
 /* Saves Selection for Inserting Items from Modals */
 saveSel = () =>{
   selectionRange = saveSelection();
-  console.log(selectionRange)
 }
 
 /* Inserts an Image into the document */
-insertImage = () => {
+insertImage = (url) => {
   restoreSelection(selectionRange);
-  imageSource = document.getElementById("image_url_input").value;
+  imageSource = url
   if(imageSource != '' && imageSource != 'null'){
-    console.log('Valid URL')
-    console.log(imageSource)
     document.execCommand('insertImage', false, imageSource)
   }
 }
@@ -155,7 +152,45 @@ $(document).ready(function(){
   $('.modal').modal();
 });
 
+/* Image Drag Drop */
 
+onDragEnter = function(event) {
+  event.preventDefault();
+  $("#imageDrop").addClass("dragover");
+}, 
+
+onDragOver = function(event) {
+  event.preventDefault(); 
+  if(!$("#imageDrop").hasClass("dragover"))
+      $("#imageDrop").addClass("dragover");
+}, 
+
+onDragLeave = function(event) {
+  event.preventDefault();
+  $("#imageDrop").removeClass("dragover");
+},
+
+onDrop = function(event) {
+  event.preventDefault();
+  $("#imageDrop").removeClass("dragover");
+  fileList = event.originalEvent.dataTransfer.files
+  if(fileList[0] != undefined){
+    insertImage(fileList[0]['path'])
+    $('.modal').modal('close')
+  }else{
+    $("#imageDrop").text('Please drop a local image file, or use a URL')
+  }
+};
+
+$("#imageDrop")
+.on("dragenter", onDragEnter)
+.on("dragover", onDragOver)
+.on("dragleave", onDragLeave)
+.on("drop", onDrop);
+
+insertImageURL = () => {
+  insertImage(document.getElementById("image_url_input").value)
+}
 
 /* UI Autohide */
 var i = null;

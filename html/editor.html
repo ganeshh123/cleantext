@@ -57,15 +57,6 @@
     <div id="imageInsert" class="modal-content">
       <h2>Add Image</h2>
 
-      <div id='image_insert_type_switch' class="switch">
-        <label>
-          URL
-          <input type="checkbox">
-          <span class="lever"></span>
-          File
-        </label>
-      </div>
-
       <form id='image_insert_form'>
         <div class="row">
           <div class="input-field">
@@ -74,9 +65,14 @@
             <label for="image_url_input">Image URL</label>
           </div>
         </div>
+        <div class='row'>
+          <div id='imageDrop'>
+            Or ... Drop an image from your computer
+          </div>
+        </div>
       </form>
 
-      <a href="#!" onClick="insertImage()" class="modal-close waves-effect btn-flat">Done</a>
+      <a href="#!" onClick="insertImageURL()" class="modal-close waves-effect btn-flat">Done</a>
     </div>
   </div>
 

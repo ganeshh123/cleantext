@@ -164,7 +164,7 @@ html, body {
  }
 
  .modal {
-    top: 40% !important;
+    top: 20% !important;
     max-width: 500px;
     border-radius: 5px;
 }
@@ -251,6 +251,15 @@ html, body {
 
 #image_url_input {
     width: 90%;
+}
+#imageDrop {
+    height: 100px;
+    width: 100%;
+    background-color: #f3f3f3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
 }
 
 
@@ -358,6 +367,6 @@ blockquote{
     box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
     display: block;
     width: auto;
-    max-width:1000px;
+    max-width:700px;
     margin: 20px auto 20px 30px;
   }
