@@ -78,6 +78,8 @@ function createMainWindow() {
               { type: 'separator' },
               {label: 'Bullet List', click: () => {sendFormatCommand('insertUnorderedList')}, accelerator: 'CmdOrCtrl+L'},
               {label: 'Numbered List', click: () => {sendFormatCommand('insertOrderedList')}, accelerator: 'CmdOrCtrl+N'},
+              { type: 'separator' },
+              {label: 'Clear Formatting', click: () => {sendFormatCommand('removeFormat')}, accelerator: 'CmdOrCtrl+0'},
             ]
         }
     ]

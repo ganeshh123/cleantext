@@ -34,6 +34,28 @@ if(process.platform != 'darwin'){
   titleBar.updateTitle('CleanText');
 }
 
+/* UI Autohide */
+let uiAutoHideTimer = null;
+$( "#editor" ).keypress(function() {
+  uiAutoHideTimer = setTimeout(() => {
+    if(uiAutoHideTimer != null){
+        $("#controlPanel").stop().fadeTo(10, 0);
+      if(process.platform == 'win32'){
+        $(".menubar").stop().fadeTo(10, 0);
+      }
+    }
+  }, 5000)
+});
+$("#appContainer").mousemove(function() {
+    uiAutoHideTimer = null
+    $("#controlPanel").stop().fadeTo(10, 1);
+    if(process.platform == 'win32'){
+      $(".menubar").stop().fadeTo(10, 1);
+    }
+})
+
+
+/* Menu Items */
 const {ipcRenderer} = require('electron');
 
 /* Display Document Content */
@@ -68,6 +90,10 @@ ipcRenderer.on('fileSaved:name', (e, data) => {
 /* Formats the text upon receiving a command */
 ipcRenderer.on('formatCommand', (e, command) => {
     document.execCommand('removeFormat')
+    if(command === 'removeFormat'){
+      document.execCommand('formatBlock', false, 'div')
+      return
+    }
     document.execCommand(command);
 });
 
@@ -123,16 +149,6 @@ saveSel = () =>{
   selectionRange = saveSelection();
 }
 
-/* Inserts an Image into the document */
-insertImage = (url) => {
-  restoreSelection(selectionRange);
-  imageSource = url
-  if(imageSource != '' && imageSource != 'null'){
-    document.execCommand('insertImage', false, imageSource)
-  }
-}
-
-
 /*Format Dropdown*/
 $('.formatSelectTrigger').dropdown({
   inDuration: 300,
@@ -150,12 +166,25 @@ $('.formatSelectTrigger').dropdown({
 );
 
 
-/* Image Insert Modal */
+/* Modals */
 $(document).ready(function(){
   $('.modal').modal();
 });
 
-/* Image Drag Drop */
+/* Image Insert */
+
+//Insets and Image into the Document
+insertImage = (url) => {
+  restoreSelection(selectionRange);
+  imageSource = url
+  if(imageSource != '' && imageSource != 'null'){
+    document.execCommand('insertImage', false, imageSource)
+  }
+}
+
+openImageInsertModal = () => {
+  saveSel()
+}
 
 onDragEnter = function(event) {
   event.preventDefault();
@@ -194,23 +223,3 @@ $("#imageDrop")
 insertImageURL = () => {
   insertImage(document.getElementById("image_url_input").value)
 }
-
-/* UI Autohide */
-let uiAutoHideTimer = null;
-$( "#editor" ).keypress(function() {
-  uiAutoHideTimer = setTimeout(() => {
-    if(uiAutoHideTimer != null){
-        $("#controlPanel").stop().fadeTo(10, 0);
-      if(process.platform == 'win32'){
-        $(".menubar").stop().fadeTo(10, 0);
-      }
-    }
-  }, 5000)
-});
-$("#appContainer").mousemove(function() {
-    uiAutoHideTimer = null
-    $("#controlPanel").stop().fadeTo(10, 1);
-    if(process.platform == 'win32'){
-      $(".menubar").stop().fadeTo(10, 1);
-    }
-})
