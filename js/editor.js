@@ -160,8 +160,8 @@ $(document).ready(function(){
 /* UI Autohide */
 var i = null;
 $("#appContainer").mousemove(function() {
-    $("#controlPanel").css("visibility","visible");
+    $("#controlPanel").stop().fadeTo('fast', 1);
     i = setTimeout(() => {
-      $("#controlPanel").css("visibility","hidden");
+      $("#controlPanel").stop().fadeTo('slow', 0);
     }, 5000);
 })

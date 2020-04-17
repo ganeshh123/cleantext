@@ -209,7 +209,6 @@ html, body {
     justify-content: center;
     align-items: center;
     align-self: center;
-    animation: opac 0.7s;
 }
 .panelButton {
     margin: 0px;
