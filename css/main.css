@@ -127,6 +127,10 @@ table {
 .window-icon{
     font-weight: bold;
 }
+.window-appicon{
+    background-color: white;
+    border-radius: 5px;
+}
 
 /* Container Styles */
 html, body {

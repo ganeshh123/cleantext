@@ -30,7 +30,8 @@ setTimeout(function() {
 if(process.platform != 'darwin'){
   titleBar = new customTitlebar.Titlebar({
     backgroundColor: customTitlebar.Color.fromHex('#ffffff'),
-    shadow: true
+    shadow: true,
+    icon: '../assets/cleantext_icon.svg'
   });
   titleBar.updateTitle('CleanText');
 }

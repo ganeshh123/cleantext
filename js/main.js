@@ -1,10 +1,13 @@
 /* Imports */
-const { app, BrowserWindow, Menu, dialog, ipcMain} = require('electron')
+const { app, BrowserWindow, Menu, dialog, ipcMain, Tray} = require('electron')
 const fs = require ('fs')
 const showdown  = require('showdown')
 const jsdom = require('jsdom')
 const { plugin } = require('electron-frameless-window-plugin')
 const path = require('path');
+const join = require('path').join;
+const openAboutWindow = require('about-window').default;
+
 
 /* App Variables */
 const converter = new showdown.Converter({tables: true, underline: true})
@@ -25,7 +28,7 @@ function createMainWindow() {
         webPreferences: {
             nodeIntegration: true
         },
-        
+        icon: path.join(__dirname, '../assets/cleantext_icon.png')
     })
 
     let appMenuTemplate = [{
@@ -33,6 +36,7 @@ function createMainWindow() {
             submenu: [
                 {label: 'Open', click: openFile, accelerator: 'CmdOrCtrl+O'},
                 {label: 'Save', click: saveRequest, accelerator: 'CmdOrCtrl+S'},
+                {label: 'About CleanText', click: showAbout, accelerator: 'F1'},
                 {label: 'Exit', role: 'quit', accelerator: isMac ? 'Cmd+Q' : 'Alt+F4'}
             ]
         },
@@ -224,4 +228,20 @@ function focusAndPerform(methodName) {
         window.webContents.focus()
         window.webContents[methodName]()
       }
+}
+
+/* Show About Information */
+const showAbout = () => {
+    openAboutWindow({
+        icon_path: path.join(__dirname, '../assets/cleantext_icon.png'),
+        open_devtools: process.env.NODE_ENV !== 'production',
+        about_page_dir: path.join(__dirname, '../html/'),
+        show_close_button: 'Close',
+        win_options: {
+            frame: isMac ? true: false,
+            transparent: !isMac,
+            fullscreen: false,
+            titleBarStyle: 'hidden',
+        }
+    })
 }
