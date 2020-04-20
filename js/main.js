@@ -36,7 +36,7 @@ function createMainWindow() {
             submenu: [
                 {label: 'Open', click: openFile, accelerator: 'CmdOrCtrl+O'},
                 {label: 'Save', click: saveRequest, accelerator: 'CmdOrCtrl+S'},
-                {label: 'About CleanText', click: showAbout, accelerator: 'F1'},
+                {label: 'About CleanText', click: showAbout},
                 {label: 'Exit', role: 'quit', accelerator: isMac ? 'Cmd+Q' : 'Alt+F4'}
             ]
         },
@@ -90,7 +90,7 @@ function createMainWindow() {
 
     /* Enable Developer Tools when not in Production */
     if(process.env.NODE_ENV != 'production'){
-        appMenuTemplate[0].submenu.splice(2, 0,
+        appMenuTemplate[0].submenu.splice(3, 0,
             {
                 label: 'Developer',
                 click(item, focusedWindow){
