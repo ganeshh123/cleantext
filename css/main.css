@@ -262,6 +262,26 @@ html, body {
     border-radius: 5px;
 }
 
+/* Link Insert */
+#linkInsert {
+    background-color: white !important;
+    color: black !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#link_insert_form {
+    width: 100%;
+}
+
+#link_url_input, #link_text_input {
+    width: 90%;
+}
+
+a{
+    cursor: pointer;
+}
 
 /* Document Styling */
 h1, h2, h3, h4, h5, h6, p {

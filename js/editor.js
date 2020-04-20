@@ -5,6 +5,7 @@ let macTitleBar
 require('jquery')
 require('hammerjs')
 require('materialize-css')
+const { shell } = require('electron')
 
 /* Variables */
 let selectionRange;
@@ -223,3 +224,43 @@ $("#imageDrop")
 insertImageURL = () => {
   insertImage(document.getElementById("image_url_input").value)
 }
+
+/* Insert URL */
+
+processLinks = () => {
+  $("a").each(function() {
+    $(this).attr("contentEditable", "false");
+  });
+}
+
+document.getElementById('editor').onpaste = processLinks;
+
+//open links externally by default
+$(document).on('click', 'a[href^="http"]', function(event) {
+    event.preventDefault();
+    shell.openExternal(this.href);
+});
+
+openLinkInsertModal = () => {
+  saveSel()
+}
+
+insertLink = () => {
+  url = document.getElementById("link_url_input").value
+  urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm
+  if(!urlRegex.test(url)){
+    console.log('URL test failed')
+    return
+  }
+  text = document.getElementById("link_text_input").value
+  if(text === ''){
+    text = url
+  }
+  restoreSelection(selectionRange)
+  linkElement = text.link(url)
+  //linkElement = '<span contentEditable=\'false\'>' + linkElement + '</span>'
+  linkElement = '<div>' + linkElement + ' </div>'
+  document.execCommand('insertHTML', false, linkElement)
+  processLinks()
+}
+
