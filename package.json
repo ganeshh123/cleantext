@@ -11,6 +11,7 @@
     "electron-packager": "^14.2.1"
   },
   "dependencies": {
+    "about-window": "^1.13.2",
     "custom-electron-titlebar": "^3.2.2-hotfix62",
     "electron-frameless-window-plugin": "^1.0.4",
     "hammerjs": "^2.0.8",
