@@ -238,10 +238,9 @@ const showAbout = () => {
         about_page_dir: path.join(__dirname, '../html/'),
         show_close_button: 'Close',
         win_options: {
-            frame: isMac ? true: false,
+            frame: false,
             transparent: !isMac,
-            fullscreen: false,
-            titleBarStyle: 'hidden',
+            fullscreen: false
         }
     })
 }
