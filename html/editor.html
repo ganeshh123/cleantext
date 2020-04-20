@@ -8,23 +8,32 @@
     <link href="../css/material-icons.css" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="../css/materialize.css"  media="screen,projection"/>
     <link rel="stylesheet" href="../css/main.css" />
+    <script>
+      var $ = jQuery = require("jquery");
+    </script>
     <script defer src="../js/main.js"></script>
     <script defer src="../js/editor.js"></script>
-    <script defer type="text/javascript" src="../js/materialize.js"></script>
   </head>
+
+
+  <!--App GUI-->
   <body>
     <div id="appContainer">
+
       <!--Control Panel-->
       <div id="controlPanel">
         <a class="waves-effect btn-flat panelButton" onclick="executeCommand('undo')"><i class="material-icons">undo</i></a>
         <a class="waves-effect btn-flat panelButton" onclick="executeCommand('redo')"><i class="material-icons">redo</i></a>
+        <a class="waves-effect btn-flat modal-trigger panelButton" onclick = "openImageInsertModal()" href="#imageInsertModal" style='margin-left: 20px;'><i class="material-icons">insert_photo</i></a>
+        <a class="waves-effect btn-flat modal-trigger panelButton" onclick = "openLinkInsertModal()" href="#linkInsertModal" ><i class="material-icons">link</i></a>         
         <a class="waves-effect btn-flat panelButton" onclick="executeCommand('bold')" style='margin-left: 20px;'><i class="material-icons">format_bold</i></a>
         <a class="waves-effect btn-flat panelButton" onclick="executeCommand('underline')"><i class="material-icons">format_underline</i></a>
         <a class="waves-effect btn-flat panelButton" onclick="executeCommand('italic')"><i class="material-icons">format_italic</i></a>
         <a class="waves-effect btn-flat panelButton" onclick="executeCommand('insertUnorderedList')"style='margin-left: 20px;'><i class="material-icons">format_list_bulleted</i></a>
         <a class="waves-effect btn-flat panelButton" onclick="executeCommand('insertOrderedList')"><i class="material-icons">format_list_numbered</i></a>
+        <a class='formatSelectTrigger btn-flat panelButton' href='#' data-target='formatSelectBox'><i class="material-icons">format_size</i></a>
       </div>
-
+      
       <!-- Editor -->
       <div id="editor" contenteditable="true">
         
@@ -32,5 +41,67 @@
     </div>
 
   </body>
+
+
+  <!-- Selection for Text Format -->
+  <div id='formatSelectBox' class='dropdown-content'>
+    <div id='formatSelect'>
+      <a class="waves-effect btn-flat panelButton" onclick="executeCommand('formatBlock', '<h1>')">Large Title</a>
+      <a class="waves-effect btn-flat panelButton" onclick="executeCommand('formatBlock', '<h2>')">Small Title</a>
+      <a class="waves-effect btn-flat panelButton" onclick="executeCommand('formatBlock', '<h3>')">Subtitle</a>
+      <a class="waves-effect btn-flat panelButton" onclick="executeCommand('formatBlock', '<p>')">Paragraph</a>
+      <a class="waves-effect btn-flat panelButton" onclick="executeCommand('removeFormat')">Clear</a>
+    </div>
+  </div>
+
+  <!-- Modal for Inserting Images -->
+  <div id="imageInsertModal" class="modal">
+    <div id="imageInsert" class="modal-content">
+      <h2>Add Image</h2>
+
+      <form id='image_insert_form'>
+        <div class="row">
+          <div class="input-field">
+            <i class="material-icons prefix">link</i>
+            <textarea id="image_url_input" class="materialize-textarea"></textarea>
+            <label for="image_url_input">Image URL</label>
+          </div>
+        </div>
+        <div class='row'>
+          <div id='imageDrop'>
+            Or ... Drop an image from your computer
+          </div>
+        </div>
+      </form>
+
+      <a href="#!" onClick="insertImageURL()" class="modal-close waves-effect btn-flat">Done</a>
+    </div>
+  </div>
+
+   <!-- Modal for Inserting Link -->
+   <div id="linkInsertModal" class="modal">
+    <div id="linkInsert" class="modal-content">
+      <h2>Insert Hyperlink</h2>
+
+      <form id='link_insert_form'>
+        <div class="row">
+          <div class="input-field">
+            <i class="material-icons prefix">link</i>
+            <textarea id="link_url_input" class="materialize-textarea"></textarea>
+            <label for="link_url_input">Link</label>
+          </div>
+        </div>
+        <div class='row'>
+          <div class="input-field">
+            <i class="material-icons prefix">font_download</i>
+            <textarea id="link_text_input" class="materialize-textarea"></textarea>
+            <label for="link_text_input">Text</label>
+          </div>
+        </div>
+      </form>
+
+      <a href="#!" onClick="insertLink()" class="modal-close waves-effect btn-flat">Done</a>
+    </div>
+  </div>
 
 </html>

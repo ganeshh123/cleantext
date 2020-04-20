@@ -2,6 +2,13 @@
 const customTitlebar = require('custom-electron-titlebar');
 let titleBar
 let macTitleBar
+require('jquery')
+require('hammerjs')
+require('materialize-css')
+const { shell } = require('electron')
+
+/* Variables */
+let selectionRange;
 
 /* Adjustments for Mac */
 if(process.platform === 'darwin'){
@@ -15,6 +22,10 @@ if(process.platform === 'darwin'){
 }
 
 
+setTimeout(function() {
+    document.getElementById('editor').focus();
+}, 0);
+
 /* Title Bar */
 if(process.platform != 'darwin'){
   titleBar = new customTitlebar.Titlebar({
@@ -24,6 +35,28 @@ if(process.platform != 'darwin'){
   titleBar.updateTitle('CleanText');
 }
 
+/* UI Autohide */
+let uiAutoHideTimer = null;
+$( "#editor" ).keypress(function() {
+  uiAutoHideTimer = setTimeout(() => {
+    if(uiAutoHideTimer != null){
+        $("#controlPanel").stop().fadeTo(10, 0);
+      if(process.platform == 'win32'){
+        $(".menubar").stop().fadeTo(10, 0);
+      }
+    }
+  }, 5000)
+});
+$("#appContainer").mousemove(function() {
+    uiAutoHideTimer = null
+    $("#controlPanel").stop().fadeTo(10, 1);
+    if(process.platform == 'win32'){
+      $(".menubar").stop().fadeTo(10, 1);
+    }
+})
+
+
+/* Menu Items */
 const {ipcRenderer} = require('electron');
 
 /* Display Document Content */
@@ -57,21 +90,177 @@ ipcRenderer.on('fileSaved:name', (e, data) => {
 
 /* Formats the text upon receiving a command */
 ipcRenderer.on('formatCommand', (e, command) => {
+    document.execCommand('removeFormat')
+    if(command === 'removeFormat'){
+      document.execCommand('formatBlock', false, 'div')
+      return
+    }
     document.execCommand(command);
 });
 
 /* Formats the text upon receiving a command with arguments */
 ipcRenderer.on('formatCommandWithArgs', (e, data) => {
+  document.execCommand('removeFormat')
   document.execCommand(data.command, false, data.arguments);
 });
 
 executeCommand = (command, arg) => {
+  document.execCommand('removeFormat')
+  if(command == 'removeFormat'){
+    document.execCommand('formatBlock', false, 'div')
+  }
   if(!arg){
     document.execCommand(command)
   }
   else{
-    document.execCommand(command), arg
+    document.execCommand(command, false, arg)
   }
 }
 
+/* https://gist.github.com/dantaex/543e721be845c18d2f92652c0ebe06aa */
+
+saveSelection= () =>  {
+  if (window.getSelection) {
+      var sel = window.getSelection();
+      if (sel.getRangeAt && sel.rangeCount) {
+          return sel.getRangeAt(0);
+      }
+  } else if (document.selection && document.selection.createRange) {
+      return document.selection.createRange();
+  }
+  return null;
+}
+
+restoreSelection = (range) => {
+  if (range) {
+      if (window.getSelection) {
+          var sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+      } else if (document.selection && range.select) {
+          range.select();
+      }
+  }
+}
+
+/* https://gist.github.com/dantaex/543e721be845c18d2f92652c0ebe06aa */
+
+/* Saves Selection for Inserting Items from Modals */
+saveSel = () =>{
+  selectionRange = saveSelection();
+}
+
+/*Format Dropdown*/
+$('.formatSelectTrigger').dropdown({
+  inDuration: 300,
+  outDuration: 225,
+  alignment: 'left', // Displays dropdown with edge aligned to the left of button
+  constrainWidth: false,
+  coverTrigger: false,
+  onCloseEnd: () => {
+    var editor = document.getElementById('editor');
+    setTimeout(function() {
+      editor.focus();
+    }, 0);
+  }
+}
+);
+
+
+/* Modals */
+$(document).ready(function(){
+  $('.modal').modal();
+});
+
+/* Image Insert */
+
+//Insets and Image into the Document
+insertImage = (url) => {
+  restoreSelection(selectionRange);
+  imageSource = url
+  if(imageSource != '' && imageSource != 'null'){
+    document.execCommand('insertImage', false, imageSource)
+  }
+}
+
+openImageInsertModal = () => {
+  saveSel()
+}
+
+onDragEnter = function(event) {
+  event.preventDefault();
+  $("#imageDrop").addClass("dragover");
+}, 
+
+onDragOver = function(event) {
+  event.preventDefault(); 
+  if(!$("#imageDrop").hasClass("dragover"))
+      $("#imageDrop").addClass("dragover");
+}, 
+
+onDragLeave = function(event) {
+  event.preventDefault();
+  $("#imageDrop").removeClass("dragover");
+},
+
+onDrop = function(event) {
+  event.preventDefault();
+  $("#imageDrop").removeClass("dragover");
+  fileList = event.originalEvent.dataTransfer.files
+  if(fileList[0] != undefined){
+    insertImage(fileList[0]['path'])
+    $('.modal').modal('close')
+  }else{
+    $("#imageDrop").text('Please drop a local image file, or use a URL')
+  }
+};
+
+$("#imageDrop")
+.on("dragenter", onDragEnter)
+.on("dragover", onDragOver)
+.on("dragleave", onDragLeave)
+.on("drop", onDrop);
+
+insertImageURL = () => {
+  insertImage(document.getElementById("image_url_input").value)
+}
+
+/* Insert URL */
+
+processLinks = () => {
+  $("a").each(function() {
+    $(this).attr("contentEditable", "false");
+  });
+}
+
+document.getElementById('editor').onpaste = processLinks;
+
+//open links externally by default
+$(document).on('click', 'a[href^="http"]', function(event) {
+    event.preventDefault();
+    shell.openExternal(this.href);
+});
+
+openLinkInsertModal = () => {
+  saveSel()
+}
+
+insertLink = () => {
+  url = document.getElementById("link_url_input").value
+  urlRegex = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm
+  if(!urlRegex.test(url)){
+    console.log('URL test failed')
+    return
+  }
+  text = document.getElementById("link_text_input").value
+  if(text === ''){
+    text = url
+  }
+  restoreSelection(selectionRange)
+  linkElement = text.link(url)
+  //linkElement = '<span contentEditable=\'false\'>' + linkElement + '</span>'
+  linkElement = '<div>' + linkElement + ' </div>'
+  document.execCommand('insertHTML', false, linkElement)
+  processLinks()
+}
 
