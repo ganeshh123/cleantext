@@ -63,7 +63,12 @@
     document.getElementById("close-btn").addEventListener("click", function (e) {
        var window = remote.getCurrentWindow();
        window.close();
-  }); 
+    });
+    
+    if(process.platform === 'darwin'){
+        containterDom = document.getElementById('container')
+        containerDom.style.border = 'none'
+    }
 
 </script>
 </html>
