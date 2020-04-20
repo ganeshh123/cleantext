@@ -234,7 +234,7 @@ function focusAndPerform(methodName) {
 const showAbout = () => {
     openAboutWindow({
         icon_path: path.join(__dirname, '../assets/cleantext_icon.png'),
-        open_devtools: process.env.NODE_ENV !== 'production',
+        //open_devtools: process.env.NODE_ENV !== 'production',
         about_page_dir: path.join(__dirname, '../html/'),
         show_close_button: 'Close',
         win_options: {
