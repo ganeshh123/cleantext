@@ -1,7 +1,9 @@
 {
   "name": "cleantext",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.5.0",
+  "description": "A minimal, distraction-free document writer.",
+  "author": "Ganesh H (https://ganeshh123.github.io/)",
+  "license": "ISC",
   "main": "js/main.js",
   "scripts": {
     "start": "electron ."
