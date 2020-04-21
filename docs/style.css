@@ -78,85 +78,88 @@ footer a{
   max-width: 600px;
 }
 
-.icons{}
+.icons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 
-.app-store-btn {
+.android-btn, .apple-btn {
   float: left;
-  color: transparent;
   opacity: 1;
   transition: opacity 200ms;
   -webkit-transition: opacity 200ms;
+  font-size: 70px;
 }
 
-.app-store-btn:hover {
+.android-btn:hover, .apple-btn:hover {
   opacity: 0.7;
 }
 
-.android-btn {
-  background: url(./img/windows.png) no-repeat center;
-  background-size: 75px 75px;
-  height: 80px;
-  width: 80px;
-}
-
 .apple-btn {
-  background: url(./img/apple.png) no-repeat center;
-  background-size: 75px 75px;
-  height: 80px;
-  width: 80px;
-  margin-left: 35px;
+  margin-left: 50px;
+  font-size: 78px;
 }
   
 
 @media screen and (max-width: 1280px) {
-  
+
   #app-page {
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-    position: absolute; /*make sure wrapper has position: relative;*/
-    display: flex;
+    margin-top: 20px;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 10px 10px 0px 10px;
+    height: auto;
   }
 
+  .app-copy{
+    margin-top: 20px;
+    margin-left: 0px;
+    margin-bottom: 30px;
+  }
+
+  footer{
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 830px) {
+
   .phones,
-.phones:before {
-  min-width: 300px;
-  min-height: 240px;
-  background: url(img/screen_mac.png) no-repeat center;
-  background-size: 296px 235px;
-}
+  .phones:before {
+    min-width: 300px;
+    min-height: 240px;
+    background: url(img/screen_mac.png) no-repeat center;
+    background-size: 296px 235px;
+  }
 
-.app-copy{
-  padding-top: 30px;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  margin: 0px 0px 0px 0px;
-}
+  .app-copy h1{
+    font-size: 1.5em;
+  }
 
-.app-copy h1{
-  font-size: 1.5em;
-}
+  .app-copy p{
+    font-size: .8em;
+  }
 
-.app-copy p{
-  font-size: .8em;
-}
-
-.android-btn{
-  background-size: 35px 35px;
-  height: 40px;
-  width: 40px;
-}
-
-.apple-btn {
-  background-size: 35px 35px;
-  height: 40px;
-  width: 40px;
-  margin-left: 20px;
-}
+  .android-btn, .apple-btn {
+    float: left;
+    opacity: 1;
+    transition: opacity 200ms;
+    -webkit-transition: opacity 200ms;
+    font-size: 40px;
+  }
   
+  .android-btn:hover, .apple-btn:hover {
+    opacity: 0.7;
+  }
+  
+  .apple-btn {
+    margin-left: 20px;
+    font-size: 45px;
+  }
+
+  #source_button{
+    font-size: 18px;
+    background-color: #000000;
+    color: #ffffff;
+    margin-top: 20px;
+  }
 }
