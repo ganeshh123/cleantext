@@ -100,7 +100,10 @@ footer a{
   margin-left: 50px;
   font-size: 78px;
 }
-  
+
+a{
+  text-decoration: none;
+}
 
 @media screen and (max-width: 1280px) {
 
